@@ -1,11 +1,9 @@
 var url = require('url');
-var fs = require('fs');
 
 module.exports = curlI;
 
 function buildUAString() {
-  var conf = fs.readFileSync(__dirname + '/package.json', { encoding: 'utf-8' });
-  conf = JSON.parse(conf);
+  var conf = require(__dirname + '/package.json');
   return conf.name + ' / ' + conf.version;
 }
 
