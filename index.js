@@ -9,7 +9,7 @@ function buildUAString() {
 
 function curlI(uri, callback) {
   uri = url.parse(uri);
-  if (!uri.protocol) return callback(null, new Error('protocol not specified'));
+  if (!uri.protocol) return callback(new Error('protocol not specified'));
   var protocol = uri.protocol === 'http:' ? require('http') : require('https');
   var options = {
     method: 'HEAD',
