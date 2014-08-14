@@ -47,6 +47,7 @@ server.listen(0, function() {
     curli(options, function(err, headers) {
       t.error(err);
       t.ok(headers, 'Got headers!');
+      server.close();
       t.end();
     });
   });

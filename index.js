@@ -17,10 +17,15 @@ function curlI(opts, callback) {
     'User-Agent': buildUAString()
   };
 
-  protocol.request(options, function response(res) {
-    return callback(null, res.headers);
-  }).on('error', function error(err) {
+  var req = protocol.request(options, function response(res) {
+    res.on('end', function() {
+      return callback(null, res.headers);
+    });
+    res.resume();
+  });
+  req.on('error', function error(err) {
     return callback(err);
-  }).end();
+  });
+  req.end();
 }
 
