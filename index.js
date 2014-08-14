@@ -10,7 +10,7 @@ function buildUAString() {
 function curlI(uri, callback) {
   uri = url.parse(uri);
   if (!uri.protocol) return callback(null, new Error('protocol not specified'));
-  var request = uri.protocol === 'http:' ? require('http').request : require('https').request;
+  var protocol = uri.protocol === 'http:' ? require('http') : require('https');
   var options = {
     method: 'HEAD',
     host: uri.host,
@@ -20,10 +20,10 @@ function curlI(uri, callback) {
     }
   };
 
-  request(options, function(res) {
-    return callback(res.headers, null);
+  protocol.request(options, function(res) {
+    return callback(null, res.headers);
   }).on('error', function(err) {
-    return callback(null, err);
+    return callback(err);
   }).end();
 }
 
