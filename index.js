@@ -1,28 +1,25 @@
+var path = require('path');
 var url = require('url');
 
 module.exports = curlI;
 
 function buildUAString() {
-  var conf = require(__dirname + '/package.json');
+  var conf = require(path.join(__dirname, 'package.json'));
   return conf.name + ' / ' + conf.version;
 }
 
-function curlI(uri, callback) {
-  uri = url.parse(uri);
-  if (!uri.protocol) return callback(new Error('protocol not specified'));
-  var protocol = uri.protocol === 'http:' ? require('http') : require('https');
-  var options = {
-    method: 'HEAD',
-    host: uri.host,
-    path: uri.path,
-    headers: {
-      'User-Agent': buildUAString()
-    }
+function curlI(opts, callback) {
+  var options = typeof opts === 'string' ? url.parse(opts) : opts;
+  if (!options.protocol) return callback(new Error('protocol not specified'));
+  var protocol = options.protocol === 'http:' ? require('http') : require('https');
+  options.method = 'HEAD';
+  options.headers = {
+    'User-Agent': buildUAString()
   };
 
-  protocol.request(options, function(res) {
+  protocol.request(options, function response(res) {
     return callback(null, res.headers);
-  }).on('error', function(err) {
+  }).on('error', function error(err) {
     return callback(err);
   }).end();
 }
