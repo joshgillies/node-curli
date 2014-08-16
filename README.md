@@ -4,6 +4,8 @@ Simple HTTP HEAD requests in node.js, just like you would with `curl -I`.
 
 [![build status](https://secure.travis-ci.org/joshgillies/node-curli.svg)](http://travis-ci.org/joshgillies/node-curli)
 
+[![NPM](https://nodei.co/npm/curli.png?downloads=true&stars=true)](https://nodei.co/npm/curli/)
+
 # Example
 
 ```js
