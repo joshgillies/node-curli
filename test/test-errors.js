@@ -5,6 +5,8 @@ var server = require(path.join(__dirname, './server.js')).createServer();
 
 server.listen(0, function() {
   var port = server.address().port;
+  // prefix localhost with `//` otherwise it's treated as a protocol
+  // see https://github.com/joyent/node/issues/7547 for more info 
   var host = '//localhost:' + port;
   var href = 'http:' + host + '/';
 
