@@ -16,23 +16,7 @@ server.listen(0, function() {
 
   test('Testing server up and running', function(t) {
     t.ok(href, 'Test server running on ' + href);
+    server.close();
     t.end();
-  });
-
-  test('Full web path as string', function(t) {
-    curli(href, function(err, headers) {
-      t.error(err);
-      t.ok(headers, 'Got headers!');
-      t.end();
-    });
-  });
-
-  test('Url parsed object', function(t) {
-    curli(options, function(err, headers) {
-      t.error(err);
-      t.ok(headers, 'Got headers!');
-      server.close();
-      t.end();
-    });
   });
 });
