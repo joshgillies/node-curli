@@ -19,14 +19,6 @@ server.listen(0, function() {
     t.end();
   });
 
-  test('User agent being sent', function(t) {
-    curli(options, function(err, headers) {
-      t.error(err);
-      t.equal(headers['user-agent'], ua, 'User agent set to "' + ua + '"');
-      t.end();
-    });
-  });
-
   test('Full web path as string', function(t) {
     curli(href, function(err, headers) {
       t.error(err);
