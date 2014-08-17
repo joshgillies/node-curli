@@ -27,14 +27,6 @@ server.listen(0, function() {
     });
   });
 
-  test('Missing protocol', function(t) {
-    curli(host, function(err, headers) {
-      t.ok(err, 'Should error when missing protocol');
-      t.notOk(headers, 'If error you get nothing!');
-      t.end();
-    });
-  });
-
   test('Url parsed object', function(t) {
     curli(options, function(err, headers) {
       t.error(err);
