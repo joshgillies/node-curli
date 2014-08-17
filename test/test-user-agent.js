@@ -19,7 +19,7 @@ server.listen(0, function() {
     });
 
     curli(href, function(err, headers) {
-      t.ok(!err, 'Shouldn\'t error');
+      t.error(err, 'Shouldn\'t error');
       server.close();
       t.end();
     });
