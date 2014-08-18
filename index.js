@@ -13,9 +13,8 @@ function curlI(opts, callback) {
   if (!options.protocol) return callback(new Error('protocol not specified'));
   var protocol = options.protocol === 'https:' ? require('https') : require('http');
   options.method = 'HEAD';
-  options.headers = {
-    'User-Agent': buildUAString()
-  };
+  if (!options.headers) options.headers = {};
+  options.headers['user-agent'] = buildUAString();
 
   var req = protocol.request(options, function response(res) {
     res.on('end', function() {

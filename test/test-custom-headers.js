@@ -1,0 +1,33 @@
+var test = require('tape');
+var path = require('path');
+var url = require('url');
+var curli = require(path.join(__dirname, '..'));
+var server = require(path.join(__dirname, './server.js')).createServer();
+
+var conf = require(path.join(__dirname, '../package.json'));
+var ua = conf.name + ' / ' + conf.version;
+
+server.listen(0, function() {
+  var port = server.address().port;
+  var host = '//localhost:' + port;
+  var href = 'http:' + host + '/';
+  var options = url.parse(href);
+
+  options.headers = {
+    'Cache-Control': 'no-cache'
+  };
+
+  test('Custom header support', function(t) {
+    server.on('/', function(req, res) {
+      t.equal(req.headers['cache-control'], 'no-cache', 'Custom header set');
+      res.writeHead(200);
+      res.end();
+    });
+
+    curli(options, function(err, headers) {
+      t.error(err, 'Shouldn\'t error');
+      server.close();
+      t.end();
+    });
+  });
+});
