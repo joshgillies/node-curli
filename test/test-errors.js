@@ -8,7 +8,6 @@ server.listen(0, function() {
   // prefix localhost with `//` otherwise it's treated as a protocol
   // see https://github.com/joyent/node/issues/7547 for more info 
   var host = '//localhost:' + port;
-  var href = 'http:' + host + '/';
 
   test('Missing protocol', function(t) {
     server.on('/', function(req, res) {

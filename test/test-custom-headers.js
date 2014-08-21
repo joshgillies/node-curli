@@ -4,9 +4,6 @@ var url = require('url');
 var curli = require(path.join(__dirname, '..'));
 var server = require(path.join(__dirname, './server.js')).createServer();
 
-var conf = require(path.join(__dirname, '../package.json'));
-var ua = conf.name + ' / ' + conf.version;
-
 server.listen(0, function() {
   var port = server.address().port;
   var host = '//localhost:' + port;
@@ -25,6 +22,7 @@ server.listen(0, function() {
     });
 
     curli(options, function(err, headers) {
+      t.ok(headers, 'Headers sent');
       t.error(err, 'Shouldn\'t error');
       server.close();
       t.end();

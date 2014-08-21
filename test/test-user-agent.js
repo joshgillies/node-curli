@@ -2,7 +2,7 @@ var test = require('tape');
 var url = require('url');
 var path = require('path');
 var curli = require(path.join(__dirname, '..'));
-var testServer = require(path.join(__dirname, './server.js'));
+var testServer = require(path.join(__dirname, 'server.js'));
 
 test('Default user agent being set', function(t) {
   var server = testServer.createServer();
@@ -22,6 +22,7 @@ test('Default user agent being set', function(t) {
     });
 
     curli(href, function(err, headers) {
+      t.ok(headers, 'Headers sent');
       t.error(err, 'Shouldn\'t error');
       server.close();
       t.end();
@@ -49,6 +50,7 @@ test('Custom user agent', function(t) {
     });
 
     curli(options, function(err, headers) {
+      t.ok(headers, 'Headers sent');
       t.error(err, 'Shouldn\'t error');
       server.close();
       t.end();
@@ -76,6 +78,7 @@ test('Custom user agent, funky header', function(t) {
     });
 
     curli(options, function(err, headers) {
+      t.ok(headers, 'Headers sent');
       t.error(err, 'Shouldn\'t error');
       server.close();
       t.end();

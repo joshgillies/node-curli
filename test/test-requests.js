@@ -20,6 +20,7 @@ test('Request method', function(t) {
       });
 
       curli(href, function(err, headers) {
+        t.ok(headers, 'Headers sent');
         t.error(err, 'Shouldn\'t error');
         server.close();
         t.end();
@@ -43,6 +44,7 @@ test('Request method', function(t) {
       });
 
       curli(options, function(err, headers) {
+        t.ok(headers, 'Headers sent');
         t.error(err, 'Shouldn\'t error');
         server.close();
         t.end();
