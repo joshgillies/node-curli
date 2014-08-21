@@ -23,6 +23,8 @@
   },
   "homepage": "https://github.com/joshgillies/node-curli",
   "devDependencies": {
+    "jshint": "^2.5.4",
+    "precommit-hook": "^1.0.7",
     "tape": "^2.14.0"
   },
   "testling": {
