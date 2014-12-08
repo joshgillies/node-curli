@@ -70,7 +70,7 @@ test('Standard http requests', function(t) {
       res.end();
     });
 
-    t.test('Full url as string', function(t) {
+    t.test('String as first argument', function(t) {
       curli(href, function(err, headers) {
         t.error(err, 'Shouldn\'t error');
         t.ok(headers, 'Headers sent');
@@ -79,11 +79,12 @@ test('Standard http requests', function(t) {
       });
     });
 
-    t.test('url.parse()\'d url string', function(t) {
+    t.test('Object as first argument', function(t) {
       curli(options, function(err, headers) {
         t.error(err, 'Shouldn\'t error');
         t.ok(headers, 'Headers sent');
         t.equal(headers['content-type'], testHeaders['content-type'], '\'Content-Type\' header set');
+        t.deepEqual(options, url.parse(href), 'Don\'t mutate input object');
         server.close();
         t.end();
       });

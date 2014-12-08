@@ -3,38 +3,62 @@ var http = require('http');
 var https = require('https');
 var buildUAString = require('./lib/util').buildUAString;
 
-function curli(opts, callback) {
-  var options = typeof opts === 'string' ? url.parse(opts) : opts;
+function curli(uri, opts, callback) {
+  var options = {};
   var request;
+  var key;
 
-  if (!options.protocol)
+  if (typeof opts === 'function') {
+    callback = opts;
+    opts = undefined;
+  }
+  if (typeof opts === 'object') {
+    options.headers = opts;
+  }
+  if (typeof uri === 'object') {
+    opts = uri;
+    uri = undefined;
+  }
+  if (typeof uri === 'string') {
+    opts = url.parse(uri, true);
+    uri = undefined;
+  }
+
+  if (!opts.protocol)
     return callback(new Error('protocol not specified'));
 
-  options.method = 'HEAD';
+  for (key in opts) {
+    options[key] = opts[key];
+  }
 
-  request = options.protocol === 'https:' ? https.request : http.request;
-
-  if (!options.headers)
+  if (!opts.headers && !options.headers)
     options.headers = {};
 
-  for (var key in options.headers) {
+  for (key in opts.headers) {
     if (/user-agent/i.test(key)) {
-      options.headers['user-agent'] = options.headers[key];
-      delete options.headers[key];
+      options.headers['user-agent'] = opts.headers[key];
+      continue;
     }
+    options.headers[key] = opts.headers[key];
   }
 
   if (!options.headers['user-agent'])
     options.headers['user-agent'] = buildUAString();
 
-  request(options, function response(res) {
+  options.method = 'HEAD';
+
+  request = options.protocol === 'https:' ? https.request : http.request;
+
+  var req = request(options, function response(res) {
     res.on('end', function() {
       return callback(null, res.headers);
     });
     res.resume();
-  }).on('error', function error(err) {
+  });
+  req.on('error', function error(err) {
     return callback(err);
-  }).end();
+  });
+  req.end();
 }
 
 module.exports = curli;

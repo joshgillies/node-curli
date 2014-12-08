@@ -14,7 +14,7 @@ server.listen(0, function() {
     'Cache-Control': 'no-cache'
   };
 
-  test('Custom header support', function(t) {
+  test('Attatch headers to request object', function(t) {
     server.on('/', function(req, res) {
       t.equal(req.headers['cache-control'], 'no-cache', 'Custom header set');
       res.writeHead(200);
@@ -22,6 +22,20 @@ server.listen(0, function() {
     });
 
     curli(options, function(err, headers) {
+      t.ok(headers, 'Headers sent');
+      t.error(err, 'Shouldn\'t error');
+      t.end();
+    });
+  });
+
+  test('Custom header as second argument', function(t) {
+    server.on('/', function(req, res) {
+      t.equal(req.headers['cache-control'], 'no-cache', 'Custom header set');
+      res.writeHead(200);
+      res.end();
+    });
+
+    curli(href, options.headers, function(err, headers) {
       t.ok(headers, 'Headers sent');
       t.error(err, 'Shouldn\'t error');
       server.close();
