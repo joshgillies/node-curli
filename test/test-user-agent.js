@@ -1,14 +1,12 @@
 var test = require('tape');
 var url = require('url');
-var path = require('path');
-var curli = require(path.join(__dirname, '..'));
-var testServer = require(path.join(__dirname, 'server.js'));
+var curli = require('../');
+var testServer = require('./server.js');
+var buildUAString = require('../lib/util').buildUAString;
 
 test('Default user agent being set', function(t) {
   var server = testServer.createServer();
-
-  var conf = require(path.join(__dirname, '../package.json'));
-  var ua = conf.name + ' / ' + conf.version;
+  var ua = buildUAString();
 
   server.listen(0, function() {
     var port = server.address().port;

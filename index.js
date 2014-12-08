@@ -1,14 +1,9 @@
 var url = require('url');
-var path = require('path');
 var http = require('http');
 var https = require('https');
+var buildUAString = require('./lib/util').buildUAString;
 
-function buildUAString() {
-  var conf = require(path.join(__dirname, 'package.json'));
-  return conf.name + ' / ' + conf.version;
-}
-
-function curlI(opts, callback) {
+function curli(opts, callback) {
   var options = typeof opts === 'string' ? url.parse(opts) : opts;
   var request;
 
@@ -42,5 +37,5 @@ function curlI(opts, callback) {
   }).end();
 }
 
-module.exports = curlI;
+module.exports = curli;
 
