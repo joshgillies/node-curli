@@ -25,7 +25,7 @@ The first argument `uri` can either be a string or request style object. Interna
 
 You may also wish to specify custom headers to be sent with the request. These can be passed via the optional `opts` argument. This is optional as it's also possible to pass headers via `uri.headers` where `uri` is a `http.request(opts)` style object.
 
-The third argument is a standard Node style callback `cb(err, headers)` and wil be called once a responce is recieved. It returns `err` as an error object or `null`, and `headers` is a standard JavaScript object identical to `res.headers` object.
+The third argument is a standard Node style callback `cb(err, headers)` and will be called once a response is recieved. It returns `err` as an error object or `null`, and `headers` is a standard JavaScript object identical to `res.headers` object.
 
 # Install
 
