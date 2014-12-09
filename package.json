@@ -1,6 +1,6 @@
 {
   "name": "curli",
-  "version": "0.4.0",
+  "version": "0.5.0",
   "description": "Simple HTTP HEAD requests, just like you would with `curl -I`.",
   "main": "index.js",
   "scripts": {
