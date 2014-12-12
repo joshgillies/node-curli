@@ -51,7 +51,7 @@ function curli(uri, opts, callback) {
 
   var req = request(options, function response(res) {
     res.on('end', function() {
-      return callback(null, res.headers);
+      return callback(null, { headers: res.headers, statusCode: res.statusCode });
     });
     res.resume();
   });

@@ -21,8 +21,8 @@ server.listen(0, function() {
       res.end();
     });
 
-    curli(options, function(err, headers) {
-      t.ok(headers, 'Headers sent');
+    curli(options, function(err, res) {
+      t.ok(res.headers, 'Headers sent');
       t.error(err, 'Shouldn\'t error');
       t.end();
     });
@@ -35,8 +35,8 @@ server.listen(0, function() {
       res.end();
     });
 
-    curli(href, options.headers, function(err, headers) {
-      t.ok(headers, 'Headers sent');
+    curli(href, options.headers, function(err, res) {
+      t.ok(res.headers, 'Headers sent');
       t.error(err, 'Shouldn\'t error');
       server.close();
       t.end();

@@ -71,19 +71,23 @@ test('Standard http requests', function(t) {
     });
 
     t.test('String as first argument', function(t) {
-      curli(href, function(err, headers) {
+      curli(href, function(err, res) {
         t.error(err, 'Shouldn\'t error');
-        t.ok(headers, 'Headers sent');
-        t.equal(headers['content-type'], testHeaders['content-type'], '\'Content-Type\' header set');
+        t.ok(res.statusCode, 'Status code recieved');
+        t.equal(res.statusCode, 200, 'Status code 200 OK!');
+        t.ok(res.headers, 'Headers rescieved');
+        t.equal(res.headers['content-type'], testHeaders['content-type'], '\'Content-Type\' header set');
         t.end();
       });
     });
 
     t.test('Object as first argument', function(t) {
-      curli(options, function(err, headers) {
+      curli(options, function(err, res) {
         t.error(err, 'Shouldn\'t error');
-        t.ok(headers, 'Headers sent');
-        t.equal(headers['content-type'], testHeaders['content-type'], '\'Content-Type\' header set');
+        t.ok(res.statusCode, 'Status code recieved');
+        t.equal(res.statusCode, 200, 'Status code 200 OK!');
+        t.ok(res.headers, 'Headers recieved');
+        t.equal(res.headers['content-type'], testHeaders['content-type'], '\'Content-Type\' header set');
         t.deepEqual(options, url.parse(href), 'Don\'t mutate input object');
         server.close();
         t.end();
